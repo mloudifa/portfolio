@@ -12,7 +12,7 @@ import type {
 } from "./types";
 import { slugify, uniqueId } from "@/lib/utils/id";
 
-/* ---------------------------------- Reads --------------------------------- */
+/* Reads — these just return stored data. */
 
 export function getSite(db: DbShape) {
   return db.site;
@@ -83,7 +83,7 @@ export async function getCategories(): Promise<string[]> {
   return db.site.categories;
 }
 
-/* --------------------------------- Writes -------------------------------- */
+/* Writes — everything that mutates stored data. */
 
 export interface ProjectInput {
   title: string;

@@ -35,7 +35,7 @@ export class UploadError extends Error {
   }
 }
 
-/** Classify an uploaded file, validating MIME type + extension + size. */
+/** Classify an uploaded file (MIME type + extension + size). */
 export function validateUpload(
   file: File,
 ): { type: "image" | "video"; extension: string } {
@@ -54,7 +54,7 @@ export function validateUpload(
     extension = VIDEO_MIMES.get(mime)!;
   }
 
-  // Fall back to extension if the MIME type is empty or generic.
+  // If the MIME type came through empty or generic, fall back to the extension.
   if (!category) {
     const imageExt = [...IMAGE_MIMES.values()].find((v) => v === ext);
     if (imageExt) {
@@ -81,7 +81,7 @@ export function validateUpload(
   return { type: category, extension };
 }
 
-/** Persist an uploaded file under public/uploads and return its public URL. */
+/** Save an upload to public/uploads and return its public URL. */
 export async function saveUpload(file: File): Promise<UploadedFile> {
   const { type, extension } = validateUpload(file);
   const filename = `${randomUUID()}.${extension}`;
@@ -96,7 +96,7 @@ export async function saveUpload(file: File): Promise<UploadedFile> {
   };
 }
 
-/** Delete a previously uploaded file. Safe against path traversal. */
+/** Delete an upload by its public URL, guarding against path tricks. */
 export async function removeUpload(url: string): Promise<void> {
   if (!url.startsWith("/uploads/")) return;
   const resolved = path.resolve(process.cwd(), "public", url.replace(/^\/+/, ""));
@@ -105,6 +105,6 @@ export async function removeUpload(url: string): Promise<void> {
   try {
     await fs.unlink(resolved);
   } catch {
-    // File may already be gone — ignore.
+    // Probably already been removed — not worth erroring over.
   }
 }

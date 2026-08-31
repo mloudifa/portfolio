@@ -83,7 +83,7 @@ export function projectMetadata(
   };
 }
 
-/* ----------------------------- JSON-LD builders ---------------------------- */
+/* JSON-LD snippets for search engines. */
 
 export function personJsonLd(site: SiteConfig, profile: Profile, projects: Project[]) {
   return {

@@ -3,11 +3,8 @@ import { updateProfile, updateSiteConfig } from "@/lib/db/repo";
 import type { Profile, SiteConfig } from "@/lib/db/types";
 
 /**
- * Typed configuration module — the single source for site-wide settings.
- *
- * Reads and writes are backed by the persisted `data/db.json` store (via the
- * repository layer), so anything modified here is saved and survives restarts.
- * The public site and the admin panel both go through this module.
+ * Central place for the site's own settings. Backed by data/db.json, so
+ * anything I change here from the admin panel sticks after a restart.
  */
 
 export interface SiteSettings {
@@ -22,8 +19,8 @@ export async function loadConfig(): Promise<SiteSettings> {
 }
 
 /**
- * Load only the minimal settings needed by the site shell (metadata, accent,
- * nav name). Chev only touches read paths, safe to call in layouts.
+ * Minimal settings for the site shell (metadata, accent, nav name).
+ * Only touches read paths, so it's safe to call in layouts.
  */
 export async function loadPublicConfig(): Promise<{
   site: SiteConfig;

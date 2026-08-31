@@ -54,9 +54,6 @@ async function run<T>(fn: () => Promise<T>): Promise<ActionResult<T>> {
     return { ok: false, error: err instanceof Error ? err.message : "Something went wrong." };
   }
 }
-
-/* ------------------------------- Site config ------------------------------ */
-
 export async function saveSiteConfigAction(
   patch: Partial<SiteConfig>,
 ): Promise<ActionResult<SiteConfig>> {
@@ -71,9 +68,6 @@ export async function saveProfileAction(
     return {};
   });
 }
-
-/* -------------------------------- Projects ------------------------------- */
-
 export interface ProjectFormInput {
   title: string;
   slug?: string;
@@ -132,9 +126,6 @@ export async function removeProjectAction(id: string) {
     await deleteProject(id);
   });
 }
-
-/* ------------------------- Skills / Experience / Ed ----------------------- */
-
 export async function saveSkillGroupAction(
   input: { id?: string; category: string; techs: string[] },
 ): Promise<ActionResult<SkillGroup>> {
@@ -170,9 +161,6 @@ export async function removeEducationAction(id: string) {
     await deleteEducation(id);
   });
 }
-
-/* --------------------------------- Blog ----------------------------------- */
-
 export async function saveBlogPostAction(
   input: Partial<BlogPost> & { id?: string },
 ): Promise<ActionResult<BlogPost>> {
@@ -191,9 +179,6 @@ export async function removeBlogPostAction(id: string) {
     await deleteBlogPost(id);
   });
 }
-
-/* ---------------------------------- Art ----------------------------------- */
-
 export async function saveArtAction(
   input: Omit<ArtItem, "id" | "createdAt" | "updatedAt"> & { id?: string },
 ): Promise<ActionResult<ArtItem>> {
@@ -216,9 +201,6 @@ export async function removeArtAction(id: string) {
     await deleteArt(id);
   });
 }
-
-/* -------------------------------- Messages -------------------------------- */
-
 export async function toggleMessageReadAction(
   id: string,
   read: boolean,
@@ -233,9 +215,6 @@ export async function removeMessageAction(id: string) {
     await deleteMessage(id);
   });
 }
-
-/* -------------------------------- Account --------------------------------- */
-
 export async function changePasswordAction(input: {
   currentPassword: string;
   newPassword: string;

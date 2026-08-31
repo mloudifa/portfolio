@@ -13,10 +13,7 @@ interface SmartImageProps {
   className?: string;
 }
 
-/**
- * next/image wrapper with a graceful gradient placeholder fallback when an
- * image is missing, broken, or not yet uploaded by the admin.
- */
+/** next/image wrapper that shows a gradient placeholder when an image is missing or hasn't been uploaded yet. */
 export function SmartImage({
   src,
   alt,

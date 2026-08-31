@@ -4,19 +4,15 @@ import type { DbShape } from "./types";
 import { createSeedDb } from "./seed";
 
 /**
- * File-backed JSON data store.
- * The whole application state (profile, projects, media, blog, messages,
- * admin user) lives in a single `data/db.json` file. Reads are always fresh
- * and writes are atomic (write-to-temp + rename) so a crash never corrupts
- * the file. Swapping this module for a real database later is trivial — the
- * repository layer above it already exposes a stable, typed API.
+ * Everything lives in a single data/db.json file. I keep writes atomic
+ * (temp file + rename) so the site's content never gets corrupted.
  */
 export const DB_PATH =
   process.env.DATA_FILE ?? path.join(process.cwd(), "data", "db.json");
 
 let queue: Promise<unknown> = Promise.resolve();
 
-/** Serialize read-modify-write cycles to prevent clobbering. */
+/** Serialize read-modify-write cycles so reads/writes can't clobber each other. */
 function withLock<T>(fn: () => Promise<T>): Promise<T> {
   const run = queue.then(fn, fn);
   queue = run.then(
@@ -26,7 +22,7 @@ function withLock<T>(fn: () => Promise<T>): Promise<T> {
   return run;
 }
 
-/** Read the JSON file, seeding it on first use. Callers must hold the lock. */
+/** Read the JSON file, seeding it the first time it's touched. */
 async function readDb(): Promise<DbShape> {
   try {
     const raw = await fs.readFile(DB_PATH, "utf8");

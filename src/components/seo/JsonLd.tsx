@@ -2,7 +2,7 @@ interface JsonLdProps {
   data: Record<string, unknown>;
 }
 
-/** Renders a JSON-LD structured-data script (server component). */
+/** Server component that drops a JSON-LD script into a page for SEO. */
 export function JsonLd({ data }: JsonLdProps) {
   return (
     <script

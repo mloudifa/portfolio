@@ -10,8 +10,8 @@ interface TypewriterProps {
 }
 
 /**
- * Accessible typewriter: the animated text is hidden from assistive tech
- * (aria-hidden) while a visually hidden span exposes the full role list.
+ * Accessible typewriter — the typed text is hidden from screen readers
+ * (aria-hidden) while a visually hidden span keeps the full text available.
  */
 export function Typewriter({
   words,
