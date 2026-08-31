@@ -1,40 +1,51 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Pacifico } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { getDbShape } from "@/lib/db/repo";
+import { baseMetadata } from "@/lib/seo";
 import "./globals.css";
+import { SkipLink } from "@/components/layout/SkipLink";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const pacifico = Pacifico({
-  variable: "--font-pacifico",
-  subsets: ["latin"],
-  weight: "400",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const db = await getDbShape();
+  return baseMetadata(db.site, db.profile);
+}
 
-export const metadata: Metadata = {
-  title: "riycreatess | Creative Developer & Designer",
-  description:
-    "Portfolio of riycreatess — a creative developer building beautiful, functional digital experiences.",
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a0a0c",
+  colorScheme: "dark",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const db = await getDbShape();
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      style={{ "--color-accent": db.site.accentColor } as React.CSSProperties}
     >
-      <body className="bg-background text-foreground min-h-screen">{children}</body>
+      <body className="min-h-screen bg-background font-sans text-foreground">
+        <SkipLink />
+        {children}
+      </body>
     </html>
   );
 }

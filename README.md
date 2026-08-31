@@ -1,40 +1,49 @@
-# riycreatess — Portfolio
+# My Portfolio
 
-Personal portfolio website for **riycreatess**, built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and Framer Motion.
+Hey, I'm **Mohammed Loudifa** — a software engineer focused mostly on the backend, but I'll happily touch the whole stack when I need to. This repo is my personal portfolio site, the place where I put the projects I'm actually proud of: real-time APIs, AI integrations, full-stack apps, and the systems-level stuff I build for fun on the side.
 
-## Sections
+## What's on here
 
-- **Hero** — typewriter intro, CTA buttons, animated avatar
-- **About** — bio, skills (Frontend/Backend/Tools), experience timeline
-- **Projects** — project cards with image lightbox, tech badges, live/demo links
-- **Blog** — external blog post cards with date and reading time
-- **Contact** — Formspree contact form + social links
+- **Home** — a quick intro with a typewriter headline, my summary, and the projects I want people to look at first
+- **About** — who I am, what I care about, my experience and education
+- **Projects** — all my work with image galleries, tech badges, and a full breakdown per project
+- **Blog** — my writing (I'll start actually writing soon, promise)
+- **Contact** — a form you can use to reach me, plus links to find me elsewhere
 
-## Stack
+## The stack
 
-| Tech | Usage |
+I built it with the tools I reach for day to day:
+
+| Tech | What I use it for |
 |---|---|
-| [Next.js](https://nextjs.org/) | React framework (App Router) |
-| [React](https://react.dev/) | UI library |
-| [TypeScript](https://www.typescriptlang.org/) | Type safety |
-| [Tailwind CSS](https://tailwindcss.com/) | Styling |
-| [Framer Motion](https://motion.dev/) | Scroll & modal animations |
+| [Next.js](https://nextjs.org/) | The framework, with the App Router |
+| [React](https://react.dev/) | The UI |
+| [TypeScript](https://www.typescriptlang.org/) | Keeping the whole thing type-safe |
+| [Tailwind CSS](https://tailwindcss.com/) | Styling, the v4 version |
+| [Framer Motion](https://motion.dev/) | Animations and the modal/lightbox effects |
 | [Lucide React](https://lucide.dev/) | Icons |
 
-## Getting Started
+## Running it locally
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000).
 
-## Configuration
-
-All content lives in `src/config/portfolio.config.ts` — edit it to customize your bio, skills, projects, blog posts, and social links.
-
-## Build
+To build for production:
 
 ```bash
 npm run build
 ```
+
+## Content and the admin panel
+
+All the content you see on the site — bio, skills, projects, blog, contact info — lives in `data/db.json`. I didn't want to hard-code everything and edit files by hand every time, so there's an admin panel at `/admin` where I can update the site from the browser: manage projects and their images, tweak the profile, watch contact messages come in, and change site settings.
+
+I keep the actual images I upload under `public/uploads` and the screenshots for each project under `public/assets/projects/`, so everything stays in the repo and the site is fully self-contained (no external image hosting to fiddle with).
+
+## Notes
+
+- The blog section is ready but empty for now — and that's fine, it gives me somewhere to put things when I start writing properly.
+- Want to use something like this for yourself? Go for it. It's a personal project, so treat it as a starting point rather than a template to copy blindly.
